@@ -68,6 +68,8 @@
 (setq auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffer-p)
 (remove-hook 'server-switch-hook 'magit-commit-diff)
 
+(setq scroll-margin 5)
+
 (map! :leader
 "0" #'treemacs-select-window
 "1" #'winum-select-window-1
