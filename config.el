@@ -53,12 +53,21 @@
 ;; they are implemented.
 
 (use-package! winum)
-(use-package vterm :ensure t)
-
 (setq! winum-mode t)
+
+(use-package! vterm :ensure t)
+
 (setq which-key-mode t)
-(setq! visual-line-mode t)
+
+(setq global-visual-line-mode t)
+(setq global-whitespace-newline-mode t)
+
 (setq! projectile-sort-order 'recently-active)
+
+(setq magit-refresh-status-buffer nil)
+(setq auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffer-p)
+(remove-hook 'server-switch-hook 'magit-commit-diff)
+
 (map! :leader
 "0" #'treemacs-select-window
 "1" #'winum-select-window-1
@@ -80,6 +89,8 @@
 (map! :gnvei "C-t" #'transpose-chars)
 (map! :nvei "<C-tab> " #'centaur-tabs-forward)
 (map! :nvei "<C-iso-lefttab>" #'centaur-tabs-backward)
+
+(add-hook! 'prog-mode-hook 'visual-line-mode)
 (add-hook! 'prog-mode-hook 'lsp)
 (add-hook! 'before-save-hook 'whitespace-cleanup)
 ;; (add-hook! 'before-save-hook #'+format/buffer)
