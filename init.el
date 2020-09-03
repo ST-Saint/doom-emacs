@@ -18,7 +18,7 @@
 			 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
 			 ("org"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
 (doom! :input
-       ;; chinese
+       chinese
        ;; japanese
 
        :completion
