@@ -77,23 +77,37 @@
 "3" #'winum-select-window-3
 "4" #'winum-select-window-4
 )
+
+(setq-default fill-column 999)
+(setq-default global-hl-fill-column-mode 'nil)
+(setq-default hl-fill-column-mode 'nil)
+
 (setq lsp-before-save-edits t)
 (setq! tramp-inline-compress-start-size 10240)
+
+;; (global-set-key (kbd "SPC p %") 'projectile-replace-regexp)
+(global-set-key (kbd "C-c m l") 'mc/edit-lines)
+(global-set-key (kbd "C-c m r") 'mc/mark-all-in-region-regexp)
 
 (map! :eni "C-d" #'delete-char)
 (map! :nv "C-e" #'end-of-line)
 (map! :nv "C-a" #'beginning-of-line)
-(map! :nv "C-y" #'+evil/alt-paste)
+(map! :nv "C-y" #'evil-paste-after)
 (map! :i "C-y" #'evil-paste-before)
 (map! :nvi "C-n" #'next-line)
 (map! :nvi "C-p" #'previous-line)
-(map! :eni "C-k" #'evil-delete-line)
-(map! :gnvei "C-t" #'transpose-chars)
+(map! :nvei "C-k" #'evil-delete-line)
+(map! :nvei "C-t" #'transpose-chars)
 (map! :nvei "<C-tab> " #'centaur-tabs-forward)
 (map! :nvei "<C-iso-lefttab>" #'centaur-tabs-backward)
 
-(add-hook! 'prog-mode-hook 'visual-line-mode)
+;; (add-hook! 'prog-mode-hook 'visual-line-mode)
 (add-hook! 'prog-mode-hook 'lsp)
+(add-hook! 'prog-mode-hook '+word-wrap-mode)
 (add-hook! 'before-save-hook 'whitespace-cleanup)
 ;; (add-hook! 'before-save-hook #'+format/buffer)
-;; (setq globalevil-default-state 'emacs)
+
+;; (map! :map minibuffer-local-map
+;;       :mnvei "C-k" #'evil-delete-line)
+;; ;; (map! :map projectile-mode
+      ;; :mnvei (kbd "SPC p %") #'projectile-replace-regexp)
