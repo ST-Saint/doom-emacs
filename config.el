@@ -82,12 +82,14 @@
 (setq-default global-hl-fill-column-mode 'nil)
 (setq-default hl-fill-column-mode 'nil)
 
+(setq! org-log-done 'time)
+
 (setq lsp-before-save-edits t)
 (setq! tramp-inline-compress-start-size 10240)
 
-;; (global-set-key (kbd "SPC p %") 'projectile-replace-regexp)
-(global-set-key (kbd "C-c m l") 'mc/edit-lines)
-(global-set-key (kbd "C-c m r") 'mc/mark-all-in-region-regexp)
+(map! :leader "p %" #'projectile-replace-regexp)
+(map! :leader "m l" #'mc/edit-lines)
+(map! :leader "m r" #'mc/mark-all-in-region-regexp)
 
 (map! :eni "C-d" #'delete-char)
 (map! :nv "C-e" #'end-of-line)
@@ -104,6 +106,7 @@
 ;; (add-hook! 'prog-mode-hook 'visual-line-mode)
 (add-hook! 'prog-mode-hook 'lsp)
 (add-hook! 'prog-mode-hook '+word-wrap-mode)
+(add-hook! 'prog-mode-hook 'which-function-mode)
 (add-hook! 'before-save-hook 'whitespace-cleanup)
 ;; (add-hook! 'before-save-hook #'+format/buffer)
 
