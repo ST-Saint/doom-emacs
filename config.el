@@ -64,9 +64,16 @@
 
 (setq! projectile-sort-order 'recently-active)
 
+(setq vc-handled-backends nil)
 (setq magit-refresh-status-buffer nil)
 (setq auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffer-p)
+(remove-hook 'magit-refs-sections-hook 'magit-insert-tags)
 (remove-hook 'server-switch-hook 'magit-commit-diff)
+(setq magit-diff-highlight-indentation' nil)
+(setq magit-diff-highlight-trailing 'nil)
+(setq magit-diff-paint-whitespace 'nil)
+(setq magit-diff-highlight-hunk-body 'nil)
+(setq magit-diff-refine-hunk 'nil)
 
 (setq scroll-margin 5)
 
@@ -88,8 +95,8 @@
 (setq! tramp-inline-compress-start-size 10240)
 
 (map! :leader "p %" #'projectile-replace-regexp)
-(map! :leader "m l" #'mc/edit-lines)
-(map! :leader "m r" #'mc/mark-all-in-region-regexp)
+(map! :leader "m c l" #'mc/edit-lines)
+(map! :leader "m c r" #'mc/mark-all-in-region-regexp)
 
 (map! :eni "C-d" #'delete-char)
 (map! :nv "C-e" #'end-of-line)
@@ -114,3 +121,5 @@
 ;;       :mnvei "C-k" #'evil-delete-line)
 ;; ;; (map! :map projectile-mode
       ;; :mnvei (kbd "SPC p %") #'projectile-replace-regexp)
+
+(setq ivy-count-format "(%d/%d) ")
