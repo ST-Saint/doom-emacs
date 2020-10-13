@@ -55,7 +55,7 @@
 (use-package! winum)
 (setq! winum-mode t)
 
-(use-package! vterm :ensure t)
+(use-package! vterm)
 
 (setq which-key-mode t)
 
@@ -78,12 +78,12 @@
 (setq scroll-margin 5)
 
 (map! :leader
-"0" #'treemacs-select-window
-"1" #'winum-select-window-1
-"2" #'winum-select-window-2
-"3" #'winum-select-window-3
-"4" #'winum-select-window-4
-)
+      "0" #'treemacs-select-window
+      "1" #'winum-select-window-1
+      "2" #'winum-select-window-2
+      "3" #'winum-select-window-3
+      "4" #'winum-select-window-4
+      )
 
 (setq-default fill-column 999)
 (setq-default global-hl-fill-column-mode 'nil)
@@ -120,6 +120,19 @@
 ;; (map! :map minibuffer-local-map
 ;;       :mnvei "C-k" #'evil-delete-line)
 ;; ;; (map! :map projectile-mode
-      ;; :mnvei (kbd "SPC p %") #'projectile-replace-regexp)
+;; :mnvei (kbd "SPC p %") #'projectile-replace-regexp)
 
 (setq ivy-count-format "(%d/%d) ")
+
+(use-package! lsp-mode
+  :custom
+  (lsp-enable-snippet t)
+
+  :config
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-tramp-connection
+                                     "clangd")
+                    :major-modes '(c-mode c++-mode)
+                    :remote? t
+                    :server-id 'clangd-remote))
+  )
