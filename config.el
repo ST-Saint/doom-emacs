@@ -56,6 +56,7 @@
 (setq! winum-mode t)
 
 (use-package! vterm)
+(use-package! rtags)
 
 (setq which-key-mode t)
 
