@@ -92,7 +92,7 @@
 (setq! org-log-done 'time)
 
 (setq lsp-before-save-edits t)
-(setq! tramp-inline-compress-start-size 10240)
+(setq! tramp-inline-compress-start-size 102400)
 
 (map! :leader "p %" #'projectile-replace-regexp)
 (map! :leader "m c l" #'mc/edit-lines)
