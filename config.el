@@ -116,12 +116,7 @@
 (add-hook! 'prog-mode-hook '+word-wrap-mode)
 (add-hook! 'prog-mode-hook 'which-function-mode)
 (add-hook! 'before-save-hook 'whitespace-cleanup)
-;; (add-hook! 'before-save-hook #'+format/buffer)
-
-;; (map! :map minibuffer-local-map
-;;       :mnvei "C-k" #'evil-delete-line)
-;; ;; (map! :map projectile-mode
-;; :mnvei (kbd "SPC p %") #'projectile-replace-regexp)
+(add-hook! 'before-save-hook #'+format/buffer nil t)
 
 (setq ivy-count-format "(%d/%d) ")
 
