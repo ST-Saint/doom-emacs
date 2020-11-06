@@ -57,6 +57,7 @@
 
 (use-package! vterm)
 (use-package! rtags)
+(use-package! vlf)
 
 (setq which-key-mode t)
 
@@ -91,7 +92,7 @@
 (setq-default hl-fill-column-mode 'nil)
 
 (setq! org-log-done 'time)
-
+(setq doom-font (font-spec :family "Source Code Pro" :size 16));; :weight 'bold))
 (setq lsp-before-save-edits t)
 (setq! tramp-inline-compress-start-size 102400)
 
