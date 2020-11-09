@@ -52,6 +52,9 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(setenv "http_proxy" "http://127.0.0.1:2334")
+(setenv "https_proxy" "http://127.0.0.1:2334")
+
 (use-package! winum)
 (setq! winum-mode t)
 
@@ -100,6 +103,8 @@
 (map! :leader "m c l" #'mc/edit-lines)
 (map! :leader "m c r" #'mc/mark-all-in-region-regexp)
 
+(map! :nvei "C-c <C-right>" #'centaur-tabs-forward)
+(map! :nvei "C-c <C-left>" #'centaur-tabs-backward)
 (map! :eni "C-d" #'delete-char)
 (map! :nv "C-e" #'end-of-line)
 (map! :nv "C-a" #'beginning-of-line)
