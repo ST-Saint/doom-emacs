@@ -61,6 +61,30 @@
 (use-package! vterm)
 (use-package! rtags)
 (use-package! vlf)
+(use-package! hl-fill-column)
+;; (use-package! lsp-mode
+;;   :custom
+;;   (lsp-enable-snippet t)
+
+;;   :config
+;;   (lsp-register-client
+;;    (make-lsp-client :new-connection (lsp-tramp-connection
+;;                                      "clangd")
+;;                     :major-modes '(c-mode c++-mode)
+;;                     :remote? t
+;;                     :server-id 'clangd-remote))
+;;   )
+;; (setq ivy-count-format "(%d/%d) ")
+(use-package lsp-mode
+  :config
+  (lsp-register-custom-settings
+   '(("pyls.plugins.pyls_mypy.enabled" t t)
+     ("pyls.plugins.pyls_mypy.live_mode" nil t)
+     ("pyls.plugins.pyls_black.enabled" t t)
+     ("pyls.plugins.pyls_isort.enabled" t t)))
+  :hook
+  ((python-mode . lsp)))
+
 
 (setq which-key-mode t)
 
@@ -95,9 +119,13 @@
 (setq-default hl-fill-column-mode 'nil)
 
 (setq! org-log-done 'time)
-(setq doom-font (font-spec :family "Source Code Pro" :size 16));; :weight 'bold))
+(setq doom-font (font-spec :family "Source Code Pro" :size 16)
+      doom-unicode-font (font-spec :family "WenQuanYi Micro Hei Mono")
+      );; :weight 'bold))
 (setq lsp-before-save-edits t)
 (setq! tramp-inline-compress-start-size 102400)
+
+(setq! python-shell-interpreter '"ipython")
 
 (map! :leader "p %" #'projectile-replace-regexp)
 (map! :leader "m c l" #'mc/edit-lines)
@@ -125,16 +153,3 @@
 (add-hook! 'before-save-hook #'+format/buffer nil t)
 
 (setq ivy-count-format "(%d/%d) ")
-
-(use-package! lsp-mode
-  :custom
-  (lsp-enable-snippet t)
-
-  :config
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-tramp-connection
-                                     "clangd")
-                    :major-modes '(c-mode c++-mode)
-                    :remote? t
-                    :server-id 'clangd-remote))
-  )
