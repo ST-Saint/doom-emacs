@@ -59,9 +59,13 @@
 (setq! winum-mode t)
 
 (use-package! vterm)
-(use-package! rtags)
+
 (use-package! vlf)
+(require 'vlf-setup)
+
 (use-package! hl-fill-column)
+(require 'lsp-haskell)
+
 ;; (use-package! lsp-mode
 ;;   :custom
 ;;   (lsp-enable-snippet t)
@@ -72,7 +76,7 @@
 ;;                                      "clangd")
 ;;                     :major-modes '(c-mode c++-mode)
 ;;                     :remote? t
-;;                     :server-id 'clangd-remote))
+;;                     :server-id clangd-remote))
 ;;   )
 ;; (setq ivy-count-format "(%d/%d) ")
 (use-package lsp-mode
@@ -83,8 +87,18 @@
      ("pyls.plugins.pyls_black.enabled" t t)
      ("pyls.plugins.pyls_isort.enabled" t t)))
   :hook
-  ((python-mode . lsp)))
+  (
+   (c-mode . lsp)
+   (c++-mode . lsp)
+   (go-mode . lsp)
+   (sh-mode . lsp)
+   (python-mode . lsp)
+   (typescript-mode . lsp)
+   )
+  )
 
+(after! smartparens
+  (sp-local-pair 'c++-mode "<" ">" :actions nil :post-handlers nil))
 
 (setq which-key-mode t)
 
@@ -106,13 +120,7 @@
 
 (setq scroll-margin 5)
 
-(map! :leader
-      "0" #'treemacs-select-window
-      "1" #'winum-select-window-1
-      "2" #'winum-select-window-2
-      "3" #'winum-select-window-3
-      "4" #'winum-select-window-4
-      )
+(setq ivy-xref-use-file-path 't)
 
 (setq-default fill-column 999)
 (setq-default global-hl-fill-column-mode 'nil)
@@ -122,14 +130,28 @@
 (setq doom-font (font-spec :family "Source Code Pro" :size 16)
       doom-unicode-font (font-spec :family "WenQuanYi Micro Hei Mono")
       );; :weight 'bold))
-(setq lsp-before-save-edits t)
+(setq! lsp-before-save-edits t)
+(setq! lsp-enable-on-type-formatting t)
 (setq! tramp-inline-compress-start-size 102400)
 
+(setq! evil-want-C-u-scroll nil
+       evil-want-C-d-scroll nil)
+
 (setq! python-shell-interpreter '"ipython")
+
+
+(map! :leader
+      "0" #'treemacs-select-window
+      "1" #'winum-select-window-1
+      "2" #'winum-select-window-2
+      "3" #'winum-select-window-3
+      "4" #'winum-select-window-4
+      )
 
 (map! :leader "p %" #'projectile-replace-regexp)
 (map! :leader "m c l" #'mc/edit-lines)
 (map! :leader "m c r" #'mc/mark-all-in-region-regexp)
+(map! :leader "w t" #'transpose-frame)
 
 (map! :nvei "C-c <C-right>" #'centaur-tabs-forward)
 (map! :nvei "C-c <C-left>" #'centaur-tabs-backward)
@@ -137,19 +159,24 @@
 (map! :nv "C-e" #'end-of-line)
 (map! :nv "C-a" #'beginning-of-line)
 (map! :nv "C-y" #'evil-paste-after)
-(map! :i "C-y" #'evil-paste-before)
+(map! :i "C-y" #'yank)
 (map! :nvi "C-n" #'next-line)
 (map! :nvi "C-p" #'previous-line)
 (map! :nvei "C-k" #'evil-delete-line)
+(map! :g "C-b" #'left-char)
+(map! :g "C-f" #'right-char)
 (map! :nvei "C-t" #'transpose-chars)
 (map! :nvei "<C-tab> " #'centaur-tabs-forward)
 (map! :nvei "<C-iso-lefttab>" #'centaur-tabs-backward)
 
+
 ;; (add-hook! 'prog-mode-hook 'visual-line-mode)
-(add-hook! 'prog-mode-hook 'lsp)
+;; (add-hook! 'prog-mode-hook 'lsp)
 (add-hook! 'prog-mode-hook '+word-wrap-mode)
 (add-hook! 'prog-mode-hook 'which-function-mode)
 (add-hook! 'before-save-hook 'whitespace-cleanup)
 (add-hook! 'before-save-hook #'+format/buffer nil t)
+(add-hook! 'dired-mode-hook 'all-the-icons-dired-mode)
+(add-hook! 'centaur-tabs-mode-hook #'centaur-tabs-group-by-projectile-project)
 
 (setq ivy-count-format "(%d/%d) ")
